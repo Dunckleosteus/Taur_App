@@ -1,5 +1,5 @@
 mod app;
-
+mod text; 
 
 
 use app::App;

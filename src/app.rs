@@ -1,4 +1,5 @@
 use yew::prelude::*;
+use crate::text::*; 
 pub enum Msg{
     GotoMain,
     GotoEnv,
@@ -10,6 +11,7 @@ pub enum Pages{
 pub struct App {
    page: Pages
 }
+
 // test start 
 #[derive(Properties, PartialEq)]
 pub struct Props {
@@ -25,8 +27,6 @@ fn HelloWorld(props: &Props) -> Html {
     //html! { <>{"Am I loading? - "}{props.is_loading.clone()}</> }
 }
 // test end 
-
-
 
 impl Component for App {
     type Message = Msg; // set to enum
@@ -48,7 +48,7 @@ impl Component for App {
                 true
             }, 
             _=>{
-                true
+                false
             }
         }
     }
@@ -74,6 +74,7 @@ impl Component for App {
                         <h1> {"Main Page"} </h1>
                         {head}
                         <HelloWorld is_loading={false}/>
+                        { TextInput }
                     </div>
                 }
             },
