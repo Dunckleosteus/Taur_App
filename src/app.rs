@@ -10,6 +10,24 @@ pub enum Pages{
 pub struct App {
    page: Pages
 }
+// test start 
+#[derive(Properties, PartialEq)]
+pub struct Props {
+    pub is_loading: bool,
+}
+
+#[function_component]
+fn HelloWorld(props: &Props) -> Html {
+    match props.is_loading {
+        true => html!{<p>{"Hello, you have chose a true value"}</p>},
+        false =>html!{<p>{"You have chose a false value"}</p>},
+    }
+    //html! { <>{"Am I loading? - "}{props.is_loading.clone()}</> }
+}
+// test end 
+
+
+
 impl Component for App {
     type Message = Msg; // set to enum
     type Properties = ();
@@ -55,6 +73,7 @@ impl Component for App {
                     <div>
                         <h1> {"Main Page"} </h1>
                         {head}
+                        <HelloWorld is_loading={false}/>
                     </div>
                 }
             },
