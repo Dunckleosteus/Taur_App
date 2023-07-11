@@ -1,6 +1,7 @@
 use yew::prelude::*;
 pub enum Msg{
-    ChangePage,
+    GotoMain,
+    GotoEnv,
 }
 pub enum Pages{
     Main,
@@ -20,6 +21,14 @@ impl Component for App {
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message)->bool{
     // handles messages set to the component
         match msg{
+            Msg::GotoEnv =>{
+                self.page = Pages::Env;
+                true
+            },
+            Msg::GotoMain => {
+                self.page = Pages::Main;
+                true
+            }, 
             _=>{
                 true
             }
@@ -27,24 +36,34 @@ impl Component for App {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        // describes how a component should be rendered
         let link = ctx.link();
+        let head = html!{
+            <div class={"dropdown"}>
+            <button class={"dropbtn"}>{"Dropdown"}</button>
+                <div class={"dropdown-content"}>
+                    <a onclick={link.callback(|_| Msg::GotoMain)}>{"HOME"}</a>
+                    <a onclick={link.callback(|_| Msg::GotoEnv)}>{"ENV"}</a>
+                    <a href="#">{"Link 3"}</a>
+                </div>
+            </div>
+        };
+        // describes how a component should be rendered
+        
         match self.page{
             Pages::Main => {
                 html!{
-                    <div class={"dropdown"}>
-                    <button class={"dropbtn"}>{"Dropdown"}</button>
-                        <div class={"dropdown-content"}>
-                            <a onclick=link.callback(||)>{"Link 1"}</a>
-                            <a href="#">{"Link 2"}</a>
-                            <a href="#">{"Link 3"}</a>
-                        </div>
+                    <div>
+                        <h1> {"Main Page"} </h1>
+                        {head}
                     </div>
                 }
             },
             Pages::Env => {
                 html!{
-                    <h1> {"Environment Page"} </h1>
+                    <div>
+                        <h1> {"Environment Page"} </h1>
+                        {head}
+                    </div>
                 }
             },
         }
